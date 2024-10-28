@@ -1,7 +1,6 @@
 // TODO: This navbar is from https://github.com/nobruf/shadcn-landing-page and I have to change it from Nextjs to Vite,
 import { Github, Menu } from "lucide-react";
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   Sheet,
   SheetContent,
@@ -13,11 +12,9 @@ import {
 import { Separator } from "../ui/separator";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "../ui/navigation-menu";
 import { Button } from "../ui/button";
 import { ModeToggle } from "./mode-toggle";
@@ -25,11 +22,6 @@ import { ModeToggle } from "./mode-toggle";
 interface RouteProps {
   href: string;
   label: string;
-}
-
-interface FeatureProps {
-  title: string;
-  description: string;
 }
 
 const routeList: RouteProps[] = [
@@ -52,34 +44,17 @@ const routeList: RouteProps[] = [
   },
 ];
 
-const featureList: FeatureProps[] = [
-  {
-    title: "Showcase Your Value ",
-    description: "Highlight how your product solves user problems.",
-  },
-  {
-    title: "Build Trust",
-    description:
-      "Leverages social proof elements to establish trust and credibility.",
-  },
-  {
-    title: "Capture Leads",
-    description:
-      "Make your lead capture form visually appealing and strategically.",
-  },
-];
-
 function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <header className="shadow-inner bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
-      <Link
-        to="/"
+      <a
+        href="/"
         className="font-bold text-lg flex items-center w-[25%] justify-start"
       >
         <img src="/logo-icon.svg" alt="Main logo" className="w-9 h-9 mr-2" />
         Ai Trip Planner
-      </Link>
+      </a>
       {/* <!-- Mobile --> */}
       <div className="flex items-center lg:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -97,14 +72,14 @@ function Navbar() {
             <div>
               <SheetHeader className="mb-4 ml-4">
                 <SheetTitle className="flex items-center">
-                  <Link to="/" className="flex items-center">
+                  <a href="/" className="flex items-center">
                     <img
                       src="/logo-icon.svg"
                       alt="Main logo"
                       className="w-9 h-9 mr-2"
                     />
                     Ai Trip Planner
-                  </Link>
+                  </a>
                 </SheetTitle>
               </SheetHeader>
 
@@ -117,7 +92,7 @@ function Navbar() {
                     variant="ghost"
                     className="justify-start text-base"
                   >
-                    <Link to={href}>{label}</Link>
+                    <a href={href}>{label}</a>
                   </Button>
                 ))}
               </div>
@@ -136,43 +111,11 @@ function Navbar() {
       <NavigationMenu className="hidden lg:block mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-card text-base">
-              Features
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
-                <img
-                  src="https://avatars.githubusercontent.com/u/75042455?v=4"
-                  alt="RadixLogo"
-                  className="h-full w-full rounded-md object-cover"
-                  width={600}
-                  height={600}
-                />
-                <ul className="flex flex-col gap-2">
-                  {featureList.map(({ title, description }) => (
-                    <li
-                      key={title}
-                      className="rounded-md p-3 text-sm hover:bg-muted"
-                    >
-                      <p className="mb-1 font-semibold leading-none text-foreground">
-                        {title}
-                      </p>
-                      <p className="line-clamp-2 text-muted-foreground">
-                        {description}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem>
             {routeList.map(({ href, label }) => (
               <NavigationMenuLink key={href} asChild>
-                <Link to={href} className="text-base px-2">
+                <a href={href} className="text-base px-2">
                   {label}
-                </Link>
+                </a>
               </NavigationMenuLink>
             ))}
           </NavigationMenuItem>
@@ -183,13 +126,13 @@ function Navbar() {
         <ModeToggle />
 
         <Button asChild size="sm" variant="ghost" aria-label="View on GitHub">
-          <Link
+          <a
             aria-label="View on GitHub"
-            to="https://github.com/nobruf/shadcn-landing-page.git"
+            href="https://github.com/dpertsin"
             target="_blank"
           >
             <Github className="size-5" />
-          </Link>
+          </a>
         </Button>
       </div>
     </header>

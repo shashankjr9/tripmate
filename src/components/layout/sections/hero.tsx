@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "../theme-provider";
-import { Link } from "react-router-dom";
 
 export const HeroSection = () => {
   const { theme } = useTheme();
@@ -43,12 +42,13 @@ export const HeroSection = () => {
               variant="secondary"
               className="w-5/6 md:w-1/4 font-bold"
             >
-              <Link
-                to="https://github.com/dpertsin/" // TODO: add the original link
+              <a
+                href="https://github.com/dpertsin/" // TODO: add the original link
                 target="_blank"
+                rel="noopener noreferrer"
               >
-                Github respository
-              </Link>
+                Github repository
+              </a>
             </Button>
           </div>
         </div>

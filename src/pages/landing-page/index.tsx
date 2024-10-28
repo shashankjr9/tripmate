@@ -8,6 +8,7 @@ import { ServicesSection } from "@/components/layout/sections/services";
 import { SponsorsSection } from "@/components/layout/sections/sponsors";
 import { TestimonialSection } from "@/components/layout/sections/testimonial";
 
+// TODO: Add original text, images and links
 function LandingPage() {
   return (
     <>
