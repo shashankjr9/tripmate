@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 export const CallToActionSection = () => {
   return (
@@ -25,14 +26,12 @@ export const CallToActionSection = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="lg:w-[80%] text-xl text-muted-foreground">
-              Plan your next adventure with ease and discover new destinations with our AI-powered trip planner.
+              Plan your next adventure with ease and discover new destinations
+              with our AI-powered trip planner.
             </CardContent>
 
             <CardFooter>
               <Button asChild>
-                <a href="#" target="_blank">
-                  Get Started
-                </a>
               </Button>
             </CardFooter>
           </Card>

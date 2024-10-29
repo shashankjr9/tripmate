@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "../theme-provider";
+import { Link } from "react-router-dom";
 
 export const HeroSection = () => {
   const { theme } = useTheme();
@@ -28,14 +29,17 @@ export const HeroSection = () => {
           </div>
 
           <p className="max-w-screen-sm mx-auto text-xl text-muted-foreground">
-            Plan your perfect trip with the power of AI. Get started today and experience the future of trip planning.
+            Plan your perfect trip with the power of AI. Get started today and
+            experience the future of trip planning.
           </p>
 
           <div className="space-y-4 md:space-y-0 md:space-x-4">
-            <Button className="w-5/6 md:w-1/4 font-bold group/arrow">
-              Get Started
-              <ArrowRight className="size-5 group-hover/arrow:translate-x-1 transition-transform" />
-            </Button>
+            <Link to={"/create-trip"}>
+              <Button className="w-5/6 md:w-1/4 font-bold group/arrow">
+                Get Started
+                <ArrowRight className="size-5 group-hover/arrow:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
 
             <Button
               asChild

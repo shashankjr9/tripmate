@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 
 export const FooterSection = () => {
     return (
-        <footer id="footer" className="container py-1 sm:py-2 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl mx-auto">
+        <footer id="footer" className="container mt-12 py-1 sm:py-2 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl mx-auto">
             <div className="p-10 bg-card border border-secondary rounded-2xl">
                 <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-8">
                     <div className="col-span-full xl:col-span-2">

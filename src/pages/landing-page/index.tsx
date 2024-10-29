@@ -1,5 +1,3 @@
-import { FooterSection } from "@/components/layout/footer";
-import Navbar from "@/components/layout/navbar";
 import { CallToActionSection } from "@/components/layout/sections/cta";
 import { FAQSection } from "@/components/layout/sections/faq";
 import { FeaturesSection } from "@/components/layout/sections/features";
@@ -12,7 +10,6 @@ import { TestimonialSection } from "@/components/layout/sections/testimonial";
 function LandingPage() {
   return (
     <>
-      <Navbar />
       <HeroSection />
       <SponsorsSection />
       <FeaturesSection />
@@ -20,7 +17,6 @@ function LandingPage() {
       <TestimonialSection />
       <CallToActionSection />
       <FAQSection />
-      <FooterSection />
     </>
   );
 }
