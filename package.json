@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@devnomic/marquee": "^1.0.2",
+    "@google/generative-ai": "^0.21.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
@@ -23,10 +24,12 @@
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.3.0",
     "lucide-react": "^0.453.0",
+    "next-themes": "^0.4.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-google-places-autocomplete": "^4.1.0",
     "react-router-dom": "^6.27.0",
+    "sonner": "^1.7.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7"
   },

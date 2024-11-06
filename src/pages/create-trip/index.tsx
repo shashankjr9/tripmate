@@ -2,8 +2,14 @@ import { Input } from "@/components/ui/input";
 import React, { useEffect, useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { Option } from "react-google-places-autocomplete/build/types";
-import { SelectBudgetOptions, SelectTravelersList } from "@/constants/options"; // Adjust the import path as necessary
+import {
+  GEMINI_PROMPT,
+  SelectBudgetOptions,
+  SelectTravelersList,
+} from "@/constants/options"; // Adjust the import path as necessary
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { chatSession } from "@/services/geminiService";
 
 function CreateTrip() {
   const [place, setPlace] = useState<Option | null>(null);
@@ -18,9 +24,9 @@ function CreateTrip() {
     console.log(formData);
   }, [formData]);
 
-  const onGenerateTrip = () => {
+  const onGenerateTrip = async () => {
     if (formData.numberOfDays < 1 || formData.numberOfDays > 30) {
-      alert(
+      toast(
         "Please enter a number of days between 1 and 30, (if you can do more than 30 days, you don't need a planner 😅)"
       );
       return;
@@ -31,10 +37,23 @@ function CreateTrip() {
       !formData.budget ||
       !formData.traveler
     ) {
-      alert("Please fill all the fields");
+      toast("Please fill all the fields");
       return;
     }
     console.log("Generating trip with data", formData);
+
+    const Final_Prompt = GEMINI_PROMPT.replace(
+      "{location}",
+      formData.location.label
+    )
+      .replace("{vacation_days}", formData.numberOfDays)
+      .replace("{travel_with}", formData.traveler)
+      .replace("{budget}", formData.budget)
+      .replace("{vacation_days}", formData.numberOfDays);
+
+    console.log(Final_Prompt);
+    const response = await chatSession.sendMessage(Final_Prompt);
+    console.log(response.response.text());
   };
 
   return (
@@ -55,6 +74,24 @@ function CreateTrip() {
               onChange: (place) => {
                 setPlace(place);
                 handleInputChange("location", place);
+              },
+              styles: {
+                // control: (provided) => ({
+                //   ...provided,
+                // backgroundColor: "black", // TODO: Change the background color when dark mode is on
+                // }),
+                input: (provided) => ({
+                  ...provided,
+                  color: "gray",
+                }),
+                option: (provided) => ({
+                  ...provided,
+                  color: "gray",
+                }),
+                singleValue: (provided) => ({
+                  ...provided,
+                  color: "gray",
+                }),
               },
             }}
           />

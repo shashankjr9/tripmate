@@ -8,6 +8,7 @@ import LandingPage from "./pages/landing-page/index.tsx";
 import { ThemeProvider } from "./components/layout/theme-provider.tsx";
 import Navbar from "./components/layout/navbar.tsx";
 import { FooterSection } from "./components/layout/footer.tsx";
+import { Toaster } from "./components/ui/sonner.tsx";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <RouterProvider router={router} />
+      <Toaster />
     </ThemeProvider>
   </StrictMode>
 );
