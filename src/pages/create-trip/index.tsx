@@ -10,11 +10,24 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { chatSession } from "@/services/geminiService";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { FcGoogle } from "react-icons/fc";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 function CreateTrip() {
   const [place, setPlace] = useState<Option | null>(null);
 
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const handleInputChange = (name: string, value: any) => {
     setFormData({ ...formData, [name]: value });
@@ -25,6 +38,12 @@ function CreateTrip() {
   }, [formData]);
 
   const onGenerateTrip = async () => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      setOpenDialog(true);
+      return;
+    }
+
     if (formData.numberOfDays < 1 || formData.numberOfDays > 30) {
       toast(
         "Please enter a number of days between 1 and 30, (if you can do more than 30 days, you don't need a planner 😅)"
@@ -54,6 +73,38 @@ function CreateTrip() {
     console.log(Final_Prompt);
     const response = await chatSession.sendMessage(Final_Prompt);
     console.log(response.response.text());
+  };
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      GetUserProfile(codeResponse);
+      // console.log(codeResponse);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  const GetUserProfile = (tokenInfo: any) => {
+    axios
+      .get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?acceess_token=${tokenInfo?.access_token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenInfo?.access_token}`,
+            Accept: "Application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        setOpenDialog(false);
+        onGenerateTrip();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -151,6 +202,33 @@ function CreateTrip() {
       <div className="my-10 justify-end flex">
         <Button onClick={onGenerateTrip}>Generate Trip</Button>
       </div>
+
+      <Dialog open={openDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              <img src="/logo-icon.svg" alt="logo" className="w-10 h-10" />
+            </DialogTitle>
+
+            <DialogDescription>
+              <span className="text-xl font-bold mt-2 text-center">
+                Sign in to continue
+              </span>
+              <span className="text-gray-500 mt-2 text-center">
+                You need to sign in to generate a trip. If you don't have an
+                account, you can sign up for free.
+              </span>
+              <Button
+                className="w-full mt-5 flex gap-2 items-center"
+                onClick={() => login()}
+              >
+                <FcGoogle className="w-10 h-10" />
+                Sign in with Google
+              </Button>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
