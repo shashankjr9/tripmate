@@ -6,7 +6,7 @@ import {
   GEMINI_PROMPT,
   SelectBudgetOptions,
   SelectTravelersList,
-} from "@/constants/options"; // Adjust the import path as necessary
+} from "@/constants/options";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { chatSession } from "@/services/geminiService";
@@ -21,13 +21,14 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from "@/services/firebaseConfig";
 
-function CreateTrip() {
+const CreateTrip = () => {
   const [place, setPlace] = useState<Option | null>(null);
-
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
-
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleInputChange = (name: string, value: any) => {
     setFormData({ ...formData, [name]: value });
@@ -37,18 +38,12 @@ function CreateTrip() {
     console.log(formData);
   }, [formData]);
 
-  const onGenerateTrip = async () => {
-    const user = localStorage.getItem("user");
-    if (!user) {
-      setOpenDialog(true);
-      return;
-    }
-
+  const validateFormData = () => {
     if (formData.numberOfDays < 1 || formData.numberOfDays > 30) {
       toast(
         "Please enter a number of days between 1 and 30, (if you can do more than 30 days, you don't need a planner 😅)"
       );
-      return;
+      return false;
     }
     if (
       !formData.location ||
@@ -57,9 +52,22 @@ function CreateTrip() {
       !formData.traveler
     ) {
       toast("Please fill all the fields");
+      return false;
+    }
+    return true;
+  };
+
+  const GenerateTrip = async () => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      setOpenDialog(true);
       return;
     }
+
+    if (!validateFormData()) return;
+
     console.log("Generating trip with data", formData);
+    setLoading(true);
 
     const Final_Prompt = GEMINI_PROMPT.replace(
       "{location}",
@@ -70,15 +78,43 @@ function CreateTrip() {
       .replace("{budget}", formData.budget)
       .replace("{vacation_days}", formData.numberOfDays);
 
-    console.log(Final_Prompt);
-    const response = await chatSession.sendMessage(Final_Prompt);
-    console.log(response.response.text());
+    try {
+      const response = await chatSession.sendMessage(Final_Prompt);
+      // console.log("simple response: " + response.response.text());
+      saveTripToDatabase(response.response.text());
+    } catch (error) {
+      console.error("Error generating trip:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const saveTripToDatabase = async (tripData: any) => {
+    setLoading(true);
+
+    const docId = Date.now().toString();
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+    const tripDataToSave = {
+      id: docId,
+      userSelection: formData,
+      tripDataJson: JSON.parse(tripData),
+      userEmail: user?.email,
+    };
+
+    try {
+      const tripsRef = collection(db, "trips");
+      await setDoc(doc(tripsRef, docId), tripDataToSave);
+    } catch (error) {
+      console.error("Error saving trip to database:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
       GetUserProfile(codeResponse);
-      // console.log(codeResponse);
     },
     onError: (error) => {
       console.error(error);
@@ -100,7 +136,7 @@ function CreateTrip() {
         console.log(response);
         localStorage.setItem("user", JSON.stringify(response.data));
         setOpenDialog(false);
-        onGenerateTrip();
+        GenerateTrip();
       })
       .catch((error) => {
         console.error(error);
@@ -127,10 +163,6 @@ function CreateTrip() {
                 handleInputChange("location", place);
               },
               styles: {
-                // control: (provided) => ({
-                //   ...provided,
-                // backgroundColor: "black", // TODO: Change the background color when dark mode is on
-                // }),
                 input: (provided) => ({
                   ...provided,
                   color: "gray",
@@ -200,7 +232,9 @@ function CreateTrip() {
       </div>
 
       <div className="my-10 justify-end flex">
-        <Button onClick={onGenerateTrip}>Generate Trip</Button>
+        <Button onClick={GenerateTrip} disabled={loading}>
+          {loading ? "loading..." : "Generate Trip"}
+        </Button>
       </div>
 
       <Dialog open={openDialog}>
@@ -218,19 +252,26 @@ function CreateTrip() {
                 You need to sign in to generate a trip. If you don't have an
                 account, you can sign up for free.
               </span>
-              <Button
-                className="w-full mt-5 flex gap-2 items-center"
-                onClick={() => login()}
-              >
-                <FcGoogle className="w-10 h-10" />
-                Sign in with Google
-              </Button>
             </DialogDescription>
           </DialogHeader>
+          <Button
+            disabled={loading}
+            className="w-full mt-5 flex gap-2 items-center"
+            onClick={() => login()}
+          >
+            {loading ? (
+              "Loading..."
+            ) : (
+              <>
+                <FcGoogle className="w-10 h-10" />
+                Sign in with Google
+              </>
+            )}
+          </Button>
         </DialogContent>
       </Dialog>
     </div>
   );
-}
+};
 
 export default CreateTrip;
