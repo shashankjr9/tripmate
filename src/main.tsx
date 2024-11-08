@@ -10,6 +10,7 @@ import Navbar from "./components/layout/navbar.tsx";
 import { FooterSection } from "./components/layout/footer.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import ViewTrip from "./pages/view-trip/[tripId]/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -33,26 +34,10 @@ const router = createBrowserRouter([
       </>
     ),
   },
-  // {
-  //   path: "/admin/*",
-  //   element: (
-  //     <>
-  //       <AdminHeader />
-  //       <RouterProvider
-  //         router={createBrowserRouter([
-  //           {
-  //             path: "dashboard",
-  //             element: <Dashboard />,
-  //           },
-  //           {
-  //             path: "profile",
-  //             element: <Profile />,
-  //           },
-  //         ])}
-  //       />
-  //     </>
-  //   ),
-  // },
+  {
+    path: "/view-trip/:tripId",
+    element: <ViewTrip />,
+  },
 ]);
 
 createRoot(document.getElementById("root")!).render(
