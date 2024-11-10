@@ -13,37 +13,37 @@ const featureList: FeaturesProps[] = [
     icon: "TabletSmartphone",
     title: "Mobile Friendly",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam, consectetur.",
+      "Our platform is optimized for mobile devices, ensuring you can plan your trips on the go.",
   },
   {
     icon: "BadgeCheck",
-    title: "Social Proof",
+    title: "Easy Trip Planning",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Natus consectetur, odio ea accusamus aperiam.",
+      "Plan your trips effortlessly with our user-friendly interface and comprehensive tools.",
   },
   {
     icon: "Goal",
-    title: "Targeted Content",
+    title: "Easy Navigation",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. odio ea accusamus aperiam.",
+      "Navigate through our platform with ease, thanks to our intuitive design and layout.",
   },
   {
     icon: "PictureInPicture",
-    title: "Strong Visuals",
+    title: "Saved Trips",
     description:
-      "Lorem elit. A odio velit cum aliquam. Natus consectetur dolores, odio ea accusamus aperiam.",
+      "Save your favorite trips and access them anytime, anywhere with just a few clicks.",
   },
   {
     icon: "MousePointerClick",
-    title: "Clear CTA",
+    title: "Best Hotel and Places Recommendations",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing. odio ea accusamus consectetur.",
+      "Get the best recommendations for hotels and places to visit, tailored to your preferences.",
   },
   {
     icon: "Newspaper",
-    title: "Clear Headline",
+    title: "Real On-Date Images",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur.",
+      "View real-time images of destinations to help you make informed decisions.",
   },
 ];
 
@@ -55,13 +55,11 @@ export const FeaturesSection = () => {
       </h2>
 
       <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-        What Makes Us Different
+        Our proud features
       </h2>
 
       <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground mb-8">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem
-        fugiat, odit similique quasi sint reiciendis quidem iure veritatis optio
-        facere tenetur.
+        Discover the features that make our platform the best choice for planning your trips.
       </h3>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

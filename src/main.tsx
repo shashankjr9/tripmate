@@ -41,7 +41,6 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <ViewTrip />
-        <FooterSection />
       </>
     ),
   },
@@ -51,7 +50,6 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <MyTrips />
-        <FooterSection />
       </>
     ),
   }

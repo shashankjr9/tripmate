@@ -20,7 +20,7 @@ export const CallToActionSection = () => {
                 <div>
                   Ready to start using the
                   <span className="text-transparent pl-2 bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text">
-                    AI Trip Planner?
+                    TripMate?
                   </span>
                 </div>
               </CardTitle>
@@ -31,8 +31,11 @@ export const CallToActionSection = () => {
             </CardContent>
 
             <CardFooter>
-              <Button asChild>
-              </Button>
+              <Link to={"/create-trip"}>
+                <Button>
+                  Get Started
+                </Button>
+              </Link>
             </CardFooter>
           </Card>
         </div>

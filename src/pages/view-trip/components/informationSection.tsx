@@ -52,15 +52,15 @@ const InformationSection = ({ tripData }: any) => {
       <div className="my-5">
         <h3 className="font-bold text-xl">About the City</h3>
         <p className="mt-2 text-gray-700">
-          {tripData?.cityDescription?.description}
+          {tripData?.tripDataJson?.cityDescription?.description}
         </p>
         <h4 className="font-semibold text-lg mt-4">Known For</h4>
         <p className="mt-1 text-gray-700">
-          {tripData?.cityDescription?.knownFor}
+          {tripData?.tripDataJson?.cityDescription?.knownFor}
         </p>
         <h4 className="font-semibold text-lg mt-4">Don't Miss</h4>
         <p className="mt-1 text-gray-700">
-          {tripData?.cityDescription?.dontMiss}
+          {tripData?.tripDataJson?.cityDescription?.dontMiss}
         </p>
       </div>
     </div>

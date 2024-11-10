@@ -15,14 +15,14 @@ export const HeroSection = () => {
             <span className="mr-2 text-primary">
               <Badge>New</Badge>
             </span>
-            <span> 3D Google Map is out now! </span>
+            <span> 3D Google Map is coming soon! </span>
           </Badge>
 
           <div className="max-w-screen-md mx-auto text-center text-4xl md:text-6xl font-bold">
             <h1>
               Experience the
               <span className="text-transparent px-2 bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text">
-                Ai Trip Planner
+                AI Trip Planner
               </span>
               software
             </h1>
@@ -47,7 +47,7 @@ export const HeroSection = () => {
               className="w-5/6 md:w-1/4 font-bold"
             >
               <a
-                href="https://github.com/dpertsin/" // TODO: add the original link
+                href="https://github.com/dpertsin/tripmate"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -62,11 +62,11 @@ export const HeroSection = () => {
           <img
             width={1200}
             height={1200}
-            className="w-full md:w-[1200px] mx-auto rounded-lg relative rouded-lg leading-none flex items-center border border-t-2 border-secondary  border-t-primary/30"
+            className="w-full object-top object-cover h-[800px] md:w-[1200px] mx-auto rounded-lg relative rouded-lg leading-none flex items-center border border-t-2 border-secondary  border-t-primary/30 overflow-hidden"
             src={
               theme === "light"
-                ? "/hero-image-light.jpeg"
-                : "/hero-image-dark.jpeg"
+                ? "/view-trip-light-mode.png"
+                : "/view-trip-dark-mode.png"
             }
             alt="dashboard"
           />

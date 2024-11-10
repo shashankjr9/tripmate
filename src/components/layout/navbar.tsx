@@ -102,7 +102,7 @@ function Navbar() {
         className="font-bold text-lg flex items-center w-[25%] justify-start"
       >
         <img src="/logo-icon.svg" alt="Main logo" className="w-9 h-9 mr-2" />
-        Ai Trip Planner
+        TripMate
       </a>
       {/* <!-- Mobile --> */}
       <div className="flex items-center lg:hidden">
@@ -127,7 +127,7 @@ function Navbar() {
                       alt="Main logo"
                       className="w-9 h-9 mr-2"
                     />
-                    Ai Trip Planner
+                    TripMate
                   </a>
                 </SheetTitle>
               </SheetHeader>

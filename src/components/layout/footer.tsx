@@ -8,7 +8,7 @@ export const FooterSection = () => {
                     <div className="col-span-full xl:col-span-2">
                         <a href="#" className="flex font-bold items-center">
                             <img src="/logo-icon.svg" alt="Main logo" className="w-9 h-9 mr-2" />
-                            <h3 className="text-2xl">Ai Trip Planner</h3>
+                            <h3 className="text-2xl">TripMate</h3>
                         </a>
                     </div>
 

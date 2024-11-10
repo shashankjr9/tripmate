@@ -13,14 +13,14 @@ import {
   
 const FAQList: FAQProps[] = [
     {
-        question: "What is AI Trip Planner?",
-        answer: "AI Trip Planner is an intelligent tool that helps you plan your trips efficiently using AI technology.",
+        question: "What is TripMate?",
+        answer: "TripMate is an intelligent tool that helps you plan your trips efficiently using AI technology.",
         value: "item-1",
     },
     {
-        question: "How does AI Trip Planner work?",
+        question: "How does TripMate work?",
         answer:
-            "AI Trip Planner uses the Gemini API to make trip suggestions, Google Maps for navigation, and Firebase for storage.",
+            "TripMate uses the Gemini API to make trip suggestions, Google Maps for navigation, and Firebase for storage.",
         value: "item-2",
     },
     {
@@ -30,8 +30,8 @@ const FAQList: FAQProps[] = [
         value: "item-3",
     },
     {
-        question: "Is AI Trip Planner free to use?",
-        answer: "Yes, AI Trip Planner is free forever because it is a project for a hackathon powered by Google.",
+        question: "Is TripMate free to use?",
+        answer: "Yes, TripMate is free forever because it is a project for a hackathon powered by Google.",
         value: "item-4",
     },
     {

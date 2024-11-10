@@ -15,29 +15,29 @@ interface ServiceProps {
   pro: ProService;
   description: string;
 }
+
 const serviceList: ServiceProps[] = [
   {
-    title: "Custom Domain Integration",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit adipisicing.",
-    pro: 0,
-  },
-  {
-    title: "Social Media Integrations",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae, dicta.",
-    pro: 0,
-  },
-  {
-    title: "Email Marketing Integrations",
-    description: "Lorem dolor sit amet adipisicing.",
-    pro: 0,
-  },
-  {
-    title: "SEO Optimization",
-    description: "Lorem ipsum dolor sit amet consectetur.",
+    title: "3D representation",
+    description: "Allowing user to explore the city and the places with the help of the new 3D Google Map.",
     pro: 1,
   },
+  {
+    title: "Booking and Reservations",
+    description: "Integrating options for users to book hotels and reserve spots at popular attractions directly through the app, streamlining the planning process and enhancing convenience.",
+    pro: 1,
+  },
+  {
+    title: "Dynamic Suggestions",
+    description: "Enhancing the AI’s ability to offer unique and dynamic suggestions that evolve with the user’s tastes and feedback.",
+    pro: 1,
+  },
+  {
+    title: "Feedback Integration",
+    description: "Allowing users to give direct feedback on AI-generated suggestions for continuous learning and improvement.",
+    pro: 1,
+  },
+  
 ];
 
 export const ServicesSection = () => {
@@ -48,11 +48,10 @@ export const ServicesSection = () => {
       </h2>
 
       <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-        Grow Your Business
+        Our Future Services
       </h2>
       <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground mb-8">
-        From marketing and sales to operations and strategy, we have the
-        expertise to help you achieve your goals.
+        We are working on some exciting new features to enhance your trip planning experience. Stay tuned!
       </h3>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
@@ -71,7 +70,7 @@ export const ServicesSection = () => {
               variant="secondary"
               className="absolute -top-2 -right-3 data-[pro=false]:hidden"
             >
-              PRO
+              SOON
             </Badge>
           </Card>
         ))}
