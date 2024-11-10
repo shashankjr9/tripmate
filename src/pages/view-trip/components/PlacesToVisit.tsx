@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PlacesCardItem from "./PlacesCardItem";
 
 interface Place {
   placeImageURL: string;
@@ -17,9 +18,11 @@ interface Place {
 interface Day {
   places: Place[];
 }
-
 interface PlacesToVisitProps {
   tripData: {
+    userSelection: {
+      location: { label: string };
+    };
     tripDataJson: {
       itinerary: {
         [key: string]: Day;
@@ -30,6 +33,7 @@ interface PlacesToVisitProps {
 
 const PlacesToVisit: React.FC<PlacesToVisitProps> = ({ tripData }) => {
   const data = tripData?.tripDataJson?.itinerary;
+  const location = tripData?.userSelection?.location?.label;
 
   const sortedDayKeys = Object.keys(data || {}).sort((a, b) => {
     const dayA = parseInt(a.replace("day", ""));
@@ -47,27 +51,7 @@ const PlacesToVisit: React.FC<PlacesToVisitProps> = ({ tripData }) => {
           </h2>
           <div className="grid md:grid-cols-2 gap-5">
             {data[dayKey].places.map((place, index) => (
-              <Link
-                key={index}
-                to={`https://www.google.com/maps/search/?api=1&query=${place?.geoCoordinates?.latitude},${place?.geoCoordinates?.longitude}`}
-                target="_blank"
-              >
-                <div className="border rounded-xl p-3 mt-2 flex gap-5 hover:scale-105 transition-all hover:shadow-md cursor-pointer">
-                  <img
-                    src={place?.placeImageURL}
-                    className="w-[130px] h-[130px] rounded-xl object-cover"
-                    alt={place?.placeName}
-                  />
-                  <div>
-                    <h2 className="font-bold text-lg">{place?.placeName}</h2>
-                    <p className="text-sm text-gray-400">
-                      {place?.placeDetails}
-                    </p>
-                    <h2 className="mt-2">🕙 {place?.timeToTravel}</h2>
-                    <h2 className="mt-2">🎟️ {place?.ticketPricing}</h2>
-                  </div>
-                </div>
-              </Link>
+              <PlacesCardItem place={place} index={index} location={location} />
             ))}
           </div>
         </div>

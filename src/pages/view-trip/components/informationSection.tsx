@@ -1,10 +1,33 @@
-import React from "react";
+import { GetPlaceDetails, PHOTO_REF_URL } from "@/services/GlobalApi";
+import { useEffect, useState } from "react";
 
-function InformationSection({ tripData }: any) {
+const InformationSection = ({ tripData }: any) => {
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    tripData && GetPlacePhoto();
+  }, [tripData]);
+
+  const GetPlacePhoto = async () => {
+    try {
+      const query = tripData?.userSelection?.location?.label;
+      const response = await GetPlaceDetails(query);
+      console.log(response);
+
+      if (response && response.places && response.places.length > 0) {
+        const photoName = response.places[0].photos[0].name;
+        setPhotoUrl(PHOTO_REF_URL(photoName));
+        console.log("PhotoUrl: " + photoUrl);
+      }
+    } catch (error) {
+      console.error("Error fetching place photo:", error);
+    }
+  };
+
   return (
     <div>
       <img
-        src="/travel2.jpg"
+        src={photoUrl || "/travel2.jpg"}
         alt="travel"
         className="w-full h-[300px] object-cover rounded-xl"
       />
@@ -26,8 +49,22 @@ function InformationSection({ tripData }: any) {
           </div>
         </div>
       </div>
+      <div className="my-5">
+        <h3 className="font-bold text-xl">About the City</h3>
+        <p className="mt-2 text-gray-700">
+          {tripData?.cityDescription?.description}
+        </p>
+        <h4 className="font-semibold text-lg mt-4">Known For</h4>
+        <p className="mt-1 text-gray-700">
+          {tripData?.cityDescription?.knownFor}
+        </p>
+        <h4 className="font-semibold text-lg mt-4">Don't Miss</h4>
+        <p className="mt-1 text-gray-700">
+          {tripData?.cityDescription?.dontMiss}
+        </p>
+      </div>
     </div>
   );
-}
+};
 
 export default InformationSection;
