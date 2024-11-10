@@ -242,7 +242,7 @@ const CreateTrip = () => {
         </Button>
       </div>
 
-      <Dialog open={openDialog}>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogTrigger asChild>
           <Button className="hidden">Close</Button>
         </DialogTrigger>
