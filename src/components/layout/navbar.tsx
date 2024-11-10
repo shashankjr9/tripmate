@@ -236,7 +236,7 @@ function Navbar() {
                   onClick={() => {
                     googleLogout();
                     localStorage.clear();
-                    window.location.href = import.meta.env.BASE_URL;
+                    window.location.href = "/";
                   }}
                   className="cursor-pointer"
                 >

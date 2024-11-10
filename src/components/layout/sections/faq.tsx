@@ -35,7 +35,7 @@ const FAQList: FAQProps[] = [
         value: "item-4",
     },
     {
-        question: "How do I get started with AI Trip Planner?",
+        question: "How do I get started with TripMate?",
         answer: "Simply sign up on our website and start planning your trip with our easy-to-use interface.",
         value: "item-5",
     },
