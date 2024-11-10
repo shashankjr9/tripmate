@@ -17,7 +17,7 @@ import {
 } from "../ui/navigation-menu";
 import { Button } from "../ui/button";
 import { ModeToggle } from "./mode-toggle";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import {
@@ -57,7 +57,7 @@ const routeList: RouteProps[] = [
 function Navbar() {
   const location = useLocation();
 
-  const isHomePage = location.pathname === import.meta.env.BASE_URL;
+  const isHomePage = location.pathname === "/";
   const [isOpen, setIsOpen] = React.useState(false);
   // @ts-expect-error
   const user = JSON.parse(localStorage.getItem("user"));
@@ -97,13 +97,13 @@ function Navbar() {
 
   return (
     <header className="shadow-inner bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
-      <a
-        href={import.meta.env.BASE_URL}
+      <Link
+        to={"/"}
         className="font-bold text-lg flex items-center w-[25%] justify-start"
       >
         <img src="./logo-icon.svg" alt="Main logo" className="w-9 h-9 mr-2" />
         TripMate
-      </a>
+      </Link>
       {/* <!-- Mobile --> */}
       <div className="flex items-center lg:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -121,14 +121,14 @@ function Navbar() {
             <div>
               <SheetHeader className="mb-4 ml-4">
                 <SheetTitle className="flex items-center">
-                  <a href={import.meta.env.BASE_URL} className="flex items-center">
+                  <Link to={"/"} className="flex items-center">
                     <img
                       src="./logo-icon.svg"
                       alt="Main logo"
                       className="w-9 h-9 mr-2"
                     />
                     TripMate
-                  </a>
+                  </Link>
                 </SheetTitle>
               </SheetHeader>
 
@@ -142,7 +142,7 @@ function Navbar() {
                       variant="ghost"
                       className="justify-start text-base"
                     >
-                      <a href={href}>{label}</a>
+                      <Link to={href}>{label}</Link>
                     </Button>
                   ))}
                 </div>
@@ -155,10 +155,10 @@ function Navbar() {
               {user ? (
                 <>
                   <Button asChild size="sm" variant="ghost">
-                    <a href={`${import.meta.env.BASE_URL}my-trips`}>View Trips</a>
+                    <Link to={`/my-trips`}>View Trips</Link>
                   </Button>
                   <Button asChild size="sm" variant="ghost">
-                    <a href={`${import.meta.env.BASE_URL}create-trip`}>Add New Trip</a>
+                    <Link to={`/create-trip`}>Add New Trip</Link>
                   </Button>
                   <Popover>
                     <PopoverTrigger>
@@ -173,7 +173,7 @@ function Navbar() {
                         onClick={() => {
                           googleLogout();
                           localStorage.clear();
-                          window.location.href = import.meta.env.BASE_URL;
+                          window.location.href = "/";
                         }}
                         className="cursor-pointer"
                       >
@@ -203,9 +203,9 @@ function Navbar() {
             <NavigationMenuItem>
               {routeList.map(({ href, label }) => (
                 <NavigationMenuLink key={href} asChild>
-                  <a href={href} className="text-base px-2">
+                  <Link to={href} className="text-base px-2">
                     {label}
-                  </a>
+                  </Link>
                 </NavigationMenuLink>
               ))}
             </NavigationMenuItem>
@@ -218,10 +218,10 @@ function Navbar() {
         {user ? (
           <>
             <Button asChild size="sm" variant="ghost">
-              <a href={`${import.meta.env.BASE_URL}my-trips`}>View Trips</a>
+              <Link to={`/my-trips`}>View Trips</Link>
             </Button>
             <Button asChild size="sm" variant="ghost">
-              <a href={`${import.meta.env.BASE_URL}create-trip`}>Add New Trip</a>
+              <Link to={`/create-trip`}>Add New Trip</Link>
             </Button>
             <Popover>
               <PopoverTrigger>
