@@ -1,5 +1,5 @@
-import { Github, Menu } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { Menu } from "lucide-react";
+import React, { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -61,7 +61,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   // @ts-ignore
   const user = JSON.parse(localStorage.getItem("user"));
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const login = useGoogleLogin({

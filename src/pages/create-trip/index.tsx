@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { Option } from "react-google-places-autocomplete/build/types";
 import {

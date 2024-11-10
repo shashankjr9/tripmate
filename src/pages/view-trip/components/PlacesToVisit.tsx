@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PlacesCardItem from "./PlacesCardItem";
 
 interface Place {
