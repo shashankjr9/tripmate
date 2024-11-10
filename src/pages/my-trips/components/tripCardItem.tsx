@@ -59,7 +59,7 @@ const TripCardItem = ({ trip }: TripCardItemProps) => {
     >
       <div className="relative">
         <img
-          src={photoUrl || "/travel3.jpg"}
+          src={photoUrl || "./travel3.jpg"}
           alt={`${destination} trip`}
           className="object-cover w-full h-[220px]"
         />

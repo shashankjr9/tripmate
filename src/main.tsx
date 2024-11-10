@@ -84,7 +84,7 @@ const router = createBrowserRouter(
         },
         {
           path: "/view-trip/:tripId",
-          element:  (
+          element: (
             <>
               <Navbar />
               <ViewTrip />
@@ -99,18 +99,18 @@ const router = createBrowserRouter(
               <MyTrips />
             </>
           ),
-        }
+        },
       ],
     },
   ],
   {
-    basename: "/tripmate", // Set the basename to match the base path
+    basename: import.meta.env.BASE_URL, // Set the basename to match the base path
   }
 );
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <GoogleOAuthProvider
         clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}
       >

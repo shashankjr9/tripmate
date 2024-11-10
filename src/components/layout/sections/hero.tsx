@@ -65,8 +65,8 @@ export const HeroSection = () => {
             className="w-full object-top object-cover h-[800px] md:w-[1200px] mx-auto rounded-lg relative rouded-lg leading-none flex items-center border border-t-2 border-secondary  border-t-primary/30 overflow-hidden"
             src={
               theme === "light"
-                ? "/view-trip-light-mode.png"
-                : "/view-trip-dark-mode.png"
+                ? "./view-trip-light-mode.png"
+                : "./view-trip-dark-mode.png"
             }
             alt="dashboard"
           />

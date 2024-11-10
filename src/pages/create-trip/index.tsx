@@ -249,7 +249,7 @@ const CreateTrip = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              <img src="/logo-icon.svg" alt="logo" className="w-10 h-10" />
+              <img src="./logo-icon.svg" alt="logo" className="w-10 h-10" />
               <span className="text-xl font-bold mt-2 text-center">
                 Sign in to continue
               </span>

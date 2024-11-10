@@ -27,7 +27,7 @@ const InformationSection = ({ tripData }: any) => {
   return (
     <div>
       <img
-        src={photoUrl || "/travel2.jpg"}
+        src={photoUrl || "./travel2.jpg"}
         alt="travel"
         className="w-full h-[300px] object-cover rounded-xl"
       />

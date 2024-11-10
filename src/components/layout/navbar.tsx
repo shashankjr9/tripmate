@@ -57,7 +57,7 @@ const routeList: RouteProps[] = [
 function Navbar() {
   const location = useLocation();
 
-  const isHomePage = location.pathname === "/";
+  const isHomePage = location.pathname === import.meta.env.BASE_URL;
   const [isOpen, setIsOpen] = React.useState(false);
   // @ts-expect-error
   const user = JSON.parse(localStorage.getItem("user"));
@@ -98,10 +98,10 @@ function Navbar() {
   return (
     <header className="shadow-inner bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
       <a
-        href="/"
+        href={import.meta.env.BASE_URL}
         className="font-bold text-lg flex items-center w-[25%] justify-start"
       >
-        <img src="/logo-icon.svg" alt="Main logo" className="w-9 h-9 mr-2" />
+        <img src="./logo-icon.svg" alt="Main logo" className="w-9 h-9 mr-2" />
         TripMate
       </a>
       {/* <!-- Mobile --> */}
@@ -121,9 +121,9 @@ function Navbar() {
             <div>
               <SheetHeader className="mb-4 ml-4">
                 <SheetTitle className="flex items-center">
-                  <a href="/" className="flex items-center">
+                  <a href={import.meta.env.BASE_URL} className="flex items-center">
                     <img
-                      src="/logo-icon.svg"
+                      src="./logo-icon.svg"
                       alt="Main logo"
                       className="w-9 h-9 mr-2"
                     />
@@ -155,10 +155,10 @@ function Navbar() {
               {user ? (
                 <>
                   <Button asChild size="sm" variant="ghost">
-                    <a href="/my-trips">View Trips</a>
+                    <a href={`${import.meta.env.BASE_URL}my-trips`}>View Trips</a>
                   </Button>
                   <Button asChild size="sm" variant="ghost">
-                    <a href="/create-trip">Add New Trip</a>
+                    <a href={`${import.meta.env.BASE_URL}create-trip`}>Add New Trip</a>
                   </Button>
                   <Popover>
                     <PopoverTrigger>
@@ -173,7 +173,7 @@ function Navbar() {
                         onClick={() => {
                           googleLogout();
                           localStorage.clear();
-                          window.location.href = "/";
+                          window.location.href = import.meta.env.BASE_URL;
                         }}
                         className="cursor-pointer"
                       >
@@ -218,10 +218,10 @@ function Navbar() {
         {user ? (
           <>
             <Button asChild size="sm" variant="ghost">
-              <a href="/my-trips">View Trips</a>
+              <a href={`${import.meta.env.BASE_URL}my-trips`}>View Trips</a>
             </Button>
             <Button asChild size="sm" variant="ghost">
-              <a href="/create-trip">Add New Trip</a>
+              <a href={`${import.meta.env.BASE_URL}create-trip`}>Add New Trip</a>
             </Button>
             <Popover>
               <PopoverTrigger>
@@ -236,7 +236,7 @@ function Navbar() {
                   onClick={() => {
                     googleLogout();
                     localStorage.clear();
-                    window.location.href = "/";
+                    window.location.href = import.meta.env.BASE_URL;
                   }}
                   className="cursor-pointer"
                 >
@@ -259,7 +259,7 @@ function Navbar() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              <img src="/logo-icon.svg" alt="logo" className="w-10 h-10" />
+              <img src="./logo-icon.svg" alt="logo" className="w-10 h-10" />
               <span className="text-xl font-bold mt-2 text-center">
                 Sign in to continue
               </span>

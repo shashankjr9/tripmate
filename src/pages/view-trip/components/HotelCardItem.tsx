@@ -42,7 +42,7 @@ function HotelCardItem({ hotel, index }: { hotel: Hotel; index: number }) {
     >
       <div className="hover:scale-105 transition-all cursor-pointer">
         <img
-          src={photoUrl || "/travel.jpg"}
+          src={photoUrl || "./travel.jpg"}
           alt={hotel?.hotelName}
           className="rounded-xl h-[180px] w-full object-cover"
         />

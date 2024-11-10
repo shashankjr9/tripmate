@@ -14,7 +14,7 @@ function MyTrips() {
       const user: any = JSON.parse(localStorage.getItem("user"));
 
       if (!user) {
-        navigate("/");
+        navigate(import.meta.env.BASE_URL);
         return;
       }
 
