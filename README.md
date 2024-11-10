@@ -55,7 +55,7 @@ The TripMate is designed to help users plan their trips efficiently by utilizing
    ```bash
    npm install
    ```
-4. Create a `.env` file and add your API keys and configuration:
+4. Create a `.env.local` file and add your API keys and configuration:
    ```env
    VITE_GOOGLE_PLACES_API_KEY=your_google_places_api_key
    VITE_GEMINI_API_KEY=your_gemini_api_key

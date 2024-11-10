@@ -59,7 +59,7 @@ function Navbar() {
 
   const isHomePage = location.pathname === "/";
   const [isOpen, setIsOpen] = React.useState(false);
-  // @ts-ignore
+  // @ts-expect-error
   const user = JSON.parse(localStorage.getItem("user"));
   const [loading] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
