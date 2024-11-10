@@ -243,16 +243,19 @@ const CreateTrip = () => {
       </div>
 
       <Dialog open={openDialog}>
+        <DialogTrigger asChild>
+          <Button className="hidden">Close</Button>
+        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
               <img src="/logo-icon.svg" alt="logo" className="w-10 h-10" />
-            </DialogTitle>
-
-            <DialogDescription>
               <span className="text-xl font-bold mt-2 text-center">
                 Sign in to continue
               </span>
+            </DialogTitle>
+
+            <DialogDescription>
               <span className="text-gray-500 mt-2 text-center">
                 You need to sign in to generate a trip. If you don't have an
                 account, you can sign up for free.
@@ -261,7 +264,7 @@ const CreateTrip = () => {
           </DialogHeader>
           <Button
             disabled={loading}
-            className="w-full mt-5 flex gap-2 items-center"
+            className="w-full mt-2 flex gap-2 items-center"
             onClick={() => login()}
           >
             {loading ? (

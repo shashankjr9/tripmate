@@ -1,6 +1,5 @@
-// TODO: This navbar is from https://github.com/nobruf/shadcn-landing-page and I have to change it from Nextjs to Vite,
 import { Github, Menu } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -18,7 +17,19 @@ import {
 } from "../ui/navigation-menu";
 import { Button } from "../ui/button";
 import { ModeToggle } from "./mode-toggle";
-
+import { useLocation } from "react-router-dom";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 interface RouteProps {
   href: string;
   label: string;
@@ -33,7 +44,6 @@ const routeList: RouteProps[] = [
     href: "#services",
     label: "Services",
   },
-
   {
     href: "#testimonials",
     label: "Testimonials",
@@ -45,7 +55,46 @@ const routeList: RouteProps[] = [
 ];
 
 function Navbar() {
+  const location = useLocation();
+
+  const isHomePage = location.pathname === "/";
   const [isOpen, setIsOpen] = React.useState(false);
+  // @ts-ignore
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [loading, setLoading] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      GetUserProfile(codeResponse);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  const GetUserProfile = (tokenInfo: any) => {
+    axios
+      .get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?acceess_token=${tokenInfo?.access_token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenInfo?.access_token}`,
+            Accept: "Application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        setOpenDialog(false);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <header className="shadow-inner bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
       <a
@@ -83,58 +132,162 @@ function Navbar() {
                 </SheetTitle>
               </SheetHeader>
 
-              <div className="flex flex-col gap-2">
-                {routeList.map(({ href, label }) => (
-                  <Button
-                    key={href}
-                    onClick={() => setIsOpen(false)}
-                    asChild
-                    variant="ghost"
-                    className="justify-start text-base"
-                  >
-                    <a href={href}>{label}</a>
-                  </Button>
-                ))}
-              </div>
+              {isHomePage && (
+                <div className="flex flex-col gap-2">
+                  {routeList.map(({ href, label }) => (
+                    <Button
+                      key={href}
+                      onClick={() => setIsOpen(false)}
+                      asChild
+                      variant="ghost"
+                      className="justify-start text-base"
+                    >
+                      <a href={href}>{label}</a>
+                    </Button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <SheetFooter className="flex-col sm:flex-col justify-start items-start">
               <Separator className="mb-2" />
-
               <ModeToggle />
+              {user ? (
+                <>
+                  <Button asChild size="sm" variant="ghost">
+                    <a href="/my-trips">View Trips</a>
+                  </Button>
+                  <Button asChild size="sm" variant="ghost">
+                    <a href="/create-trip">Add New Trip</a>
+                  </Button>
+                  <Popover>
+                    <PopoverTrigger>
+                      <img
+                        src={user.picture}
+                        alt="User Avatar"
+                        className="w-8 h-8 rounded-full"
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <p
+                        onClick={() => {
+                          googleLogout();
+                          localStorage.clear();
+                          window.location.href = "/";
+                        }}
+                        className="cursor-pointer"
+                      >
+                        Logout
+                      </p>
+                    </PopoverContent>
+                  </Popover>
+                </>
+              ) : (
+                <Button
+                  onClick={() => setOpenDialog(true)}
+                  size="sm"
+                  variant="ghost"
+                >
+                  Sign In
+                </Button>
+              )}
             </SheetFooter>
           </SheetContent>
         </Sheet>
       </div>
 
       {/* <!-- Desktop --> */}
-      <NavigationMenu className="hidden lg:block mx-auto">
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            {routeList.map(({ href, label }) => (
-              <NavigationMenuLink key={href} asChild>
-                <a href={href} className="text-base px-2">
-                  {label}
-                </a>
-              </NavigationMenuLink>
-            ))}
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+      {isHomePage && (
+        <NavigationMenu className="hidden lg:block mx-auto">
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              {routeList.map(({ href, label }) => (
+                <NavigationMenuLink key={href} asChild>
+                  <a href={href} className="text-base px-2">
+                    {label}
+                  </a>
+                </NavigationMenuLink>
+              ))}
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      )}
 
       <div className="hidden lg:flex w-[25%] items-center justify-end">
         <ModeToggle />
-
-        <Button asChild size="sm" variant="ghost" aria-label="View on GitHub">
-          <a
-            aria-label="View on GitHub"
-            href="https://github.com/dpertsin"
-            target="_blank"
-          >
-            <Github className="size-5" />
-          </a>
-        </Button>
+        {user ? (
+          <>
+            <Button asChild size="sm" variant="ghost">
+              <a href="/my-trips">View Trips</a>
+            </Button>
+            <Button asChild size="sm" variant="ghost">
+              <a href="/create-trip">Add New Trip</a>
+            </Button>
+            <Popover>
+              <PopoverTrigger>
+                <img
+                  src={user.picture}
+                  alt="User Avatar"
+                  className="w-8 h-8 rounded-full"
+                />
+              </PopoverTrigger>
+              <PopoverContent>
+                <p
+                  onClick={() => {
+                    googleLogout();
+                    localStorage.clear();
+                    window.location.href = "/";
+                  }}
+                  className="cursor-pointer"
+                >
+                  Logout
+                </p>
+              </PopoverContent>
+            </Popover>
+          </>
+        ) : (
+          <Button onClick={() => setOpenDialog(true)} size="sm" variant="ghost">
+            Sign In
+          </Button>
+        )}
       </div>
+
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogTrigger asChild>
+          <Button className="hidden">Close</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              <img src="/logo-icon.svg" alt="logo" className="w-10 h-10" />
+              <span className="text-xl font-bold mt-2 text-center">
+                Sign in to continue
+              </span>
+            </DialogTitle>
+
+            <DialogDescription>
+              <span className="text-gray-500 mt-2 text-center">
+                You need to sign in to generate a trip. If you don't have an
+                account, you can sign up for free.
+              </span>
+            </DialogDescription>
+          </DialogHeader>
+          <Button
+            disabled={loading}
+            className="w-full mt-2 flex gap-2 items-center"
+            onClick={() => login()}
+          >
+            {loading ? (
+              "Loading..."
+            ) : (
+              <>
+                <FcGoogle className="w-10 h-10" />
+                Sign in with Google
+              </>
+            )}
+          </Button>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 }
