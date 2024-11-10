@@ -13,47 +13,100 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import ViewTrip from "./pages/view-trip/[tripId]/index.tsx";
 import MyTrips from "./pages/my-trips/index.tsx";
 
-const router = createBrowserRouter([
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: (
+//       <>
+//         <Navbar />
+//         <LandingPage />
+//         <FooterSection />
+//       </>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "/create-trip",
+//     element: (
+//       <>
+//         <Navbar />
+//         <CreateTrip />
+//         <FooterSection />
+//       </>
+//     ),
+//   },
+//   {
+//     path: "/view-trip/:tripId",
+//     element:  (
+//       <>
+//         <Navbar />
+//         <ViewTrip />
+//       </>
+//     ),
+//   },
+//   {
+//     path: "/my-trips",
+//     element: (
+//       <>
+//         <Navbar />
+//         <MyTrips />
+//       </>
+//     ),
+//   }
+// ]);
+
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "/",
+          element: (
+            <>
+              <Navbar />
+              <LandingPage />
+              <FooterSection />
+            </>
+          ),
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "/create-trip",
+          element: (
+            <>
+              <Navbar />
+              <CreateTrip />
+              <FooterSection />
+            </>
+          ),
+        },
+        {
+          path: "/view-trip/:tripId",
+          element:  (
+            <>
+              <Navbar />
+              <ViewTrip />
+            </>
+          ),
+        },
+        {
+          path: "/my-trips",
+          element: (
+            <>
+              <Navbar />
+              <MyTrips />
+            </>
+          ),
+        }
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: (
-      <>
-        <Navbar />
-        <LandingPage />
-        <FooterSection />
-      </>
-    ),
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/create-trip",
-    element: (
-      <>
-        <Navbar />
-        <CreateTrip />
-        <FooterSection />
-      </>
-    ),
-  },
-  {
-    path: "/view-trip/:tripId",
-    element:  (
-      <>
-        <Navbar />
-        <ViewTrip />
-      </>
-    ),
-  },
-  {
-    path: "/my-trips",
-    element: (
-      <>
-        <Navbar />
-        <MyTrips />
-      </>
-    ),
+    basename: "/tripmate", // Set the basename to match the base path
   }
-]);
+);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
