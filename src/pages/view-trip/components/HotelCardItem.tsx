@@ -35,7 +35,7 @@ function HotelCardItem({ hotel, index }: { hotel: Hotel; index: number }) {
   };
 
   return (
-    <div className="flex flex-col mb-6 cursor-pointer relative w-full hover:scale-105 transition-all cursor-pointer">
+    <div key={index} className="flex flex-col mb-6 relative w-full hover:scale-105 transition-all cursor-pointer">
       <Link
         to={`https://www.google.com/maps/search/?api=1&query=${hotel?.hotelName}+${hotel?.hotelAddress}`}
         target="_blank"
