@@ -35,26 +35,34 @@ function HotelCardItem({ hotel, index }: { hotel: Hotel; index: number }) {
   };
 
   return (
-    <Link
-      to={`https://www.google.com/maps/search/?api=1&query=${hotel?.hotelName}+${hotel?.hotelAddress}`}
-      target="_blank"
-      key={index}
-    >
-      <div className="hover:scale-105 transition-all cursor-pointer">
-        <img
-          src={photoUrl || "./travel.jpg"}
-          alt={hotel?.hotelName}
-          className="rounded-xl h-[180px] w-full object-cover"
-        />
-        <div className="my-2 flex flex-col gap-2">
-          <h2 className="font-medium">{hotel?.hotelName}</h2>
-          <h2 className="text-xs text-gray-500">📍 {hotel?.hotelAddress}</h2>
-          <h2 className="text-sm">💰 {hotel?.price} per night</h2>
-          <h2 className="text-sm">⭐ {hotel?.rating} stars</h2>
-          <p className="text-xs text-gray-500">{hotel?.description}</p>
+    <div className="flex flex-col mb-6 cursor-pointer relative w-full hover:scale-105 transition-all cursor-pointer">
+      <Link
+        to={`https://www.google.com/maps/search/?api=1&query=${hotel?.hotelName}+${hotel?.hotelAddress}`}
+        target="_blank"
+        className="absolute left-0 top-0 w-full h-full"
+        rel="noreferrer"
+      >
+        <span></span>
+      </Link>
+      <div
+        className="w-full aspect-[2/1.2] flex-none bg-cover bg-center justify-center items-center rounded-lg mb-2"
+        style={{ backgroundImage: `url(${photoUrl || "./travel.jpg"})` }}
+      ></div>
+      <div className="flex-1 flex flex-col justify-between">
+        <div>
+          <p className="text-xs font-medium text-zinc-800">
+            📍 {hotel?.hotelAddress}
+          </p>
+          <h3 className="font-bold line-clamp-1 mb-1 text-xl">
+            {hotel?.hotelName}
+          </h3>
+        </div>
+        <div className="flex items-center gap-x-3">
+          <strong className="text-sm font-medium">💰 {hotel?.price}</strong>
+          <span className="text-sm font-medium ">⭐ {hotel?.rating} stars</span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

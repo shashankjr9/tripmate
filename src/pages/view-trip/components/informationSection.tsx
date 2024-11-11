@@ -1,5 +1,6 @@
 import { GetPlaceDetails, PHOTO_REF_URL } from "@/services/GlobalApi";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const InformationSection = ({ tripData }: any) => {
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
@@ -24,15 +25,21 @@ const InformationSection = ({ tripData }: any) => {
     }
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast("The location name copied to clipboard!");
+  };
+
+  const shareLink = () => {
+    const link = window.location.href;
+    navigator.clipboard.writeText(link);
+    toast("Link copied to clipboard, you can share it with your friends!");
+  };
+
   return (
     <div>
-      <img
-        src={photoUrl || "./travel2.jpg"}
-        alt="travel"
-        className="w-full h-[300px] object-cover rounded-xl"
-      />
-      <div className="flex justify-between items-center mt-4">
-        <div className="my-5 flex flex-col gap-2">
+      <div className="flex justify-between  mt-4">
+        <div className="my-5 flex flex-col gap-2 ">
           <h2 className="font-bold text-2xl">
             {tripData?.userSelection?.location?.label}
           </h2>
@@ -48,7 +55,28 @@ const InformationSection = ({ tripData }: any) => {
             </h2>
           </div>
         </div>
+        <div className="flex gap-2 items-end">
+          <button
+            onClick={() =>
+              copyToClipboard(tripData?.userSelection?.location?.label)
+            }
+            className="p-1 px-3 text-gray-500 rounded-full"
+          >
+            📋 Copy
+          </button>
+          <button
+            onClick={shareLink}
+            className="p-1 px-3 text-gray-500 rounded-full"
+          >
+            🔗 Share
+          </button>
+        </div>
       </div>
+      <img
+        src={photoUrl || "./travel2.jpg"}
+        alt="travel"
+        className="w-full h-[450px] object-cover rounded-xl"
+      />
       <div className="my-5">
         <h3 className="font-bold text-xl">About the City</h3>
         <p className="mt-2 text-gray-700">

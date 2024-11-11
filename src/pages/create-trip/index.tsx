@@ -152,7 +152,8 @@ const CreateTrip = () => {
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
       <h1 className="text-3xl font-bold">Tell us your travel preferences.</h1>
       <p className="mt-3 text-gray-500 text-lg">
-        Just provide some information about where you want to go.
+        Just provide some basic information, and our trip planner will generate
+        a customized itinerary based on your preferences.
       </p>
       <div className="mt-20 flex flex-col gap-10">
         <div>
@@ -203,7 +204,7 @@ const CreateTrip = () => {
               <div
                 key={budget.id}
                 onClick={() => handleInputChange("budget", budget.title)}
-                className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg ${
+                className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg text-center ${
                   formData?.budget === budget.title ? "border-primary" : ""
                 }`}
               >
@@ -219,12 +220,12 @@ const CreateTrip = () => {
         <h2 className="text-xl my-3 font-medium">
           Who do you plan on traveling with on your next adventure?
         </h2>
-        <div className="grid grid-cols-3 gap-5 mt-5">
+        <div className="grid grid-cols-2 gap-5 mt-5">
           {SelectTravelersList.map((traveler) => (
             <div
               key={traveler.id}
               onClick={() => handleInputChange("traveler", traveler.people)}
-              className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg ${
+              className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg text-center ${
                 formData?.traveler === traveler.people ? "border-primary" : ""
               }`}
             >
