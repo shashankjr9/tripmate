@@ -142,7 +142,7 @@ function Navbar() {
                       variant="ghost"
                       className="justify-start text-base"
                     >
-                      <Link to={href}>{label}</Link>
+                      <a href={href}>{label}</a>
                     </Button>
                   ))}
                 </div>
@@ -203,9 +203,9 @@ function Navbar() {
             <NavigationMenuItem>
               {routeList.map(({ href, label }) => (
                 <NavigationMenuLink key={href} asChild>
-                  <Link to={href} className="text-base px-2">
+                  <a href={href} className="text-base px-2">
                     {label}
-                  </Link>
+                  </a>
                 </NavigationMenuLink>
               ))}
             </NavigationMenuItem>
