@@ -4,6 +4,9 @@ Welcome to the Ai Trip Planner "TripMate" project! This project is built using V
 
 You can read more about the approach for creating this repository [here](DOC.md).
 
+You can also see the demo video here:
+[![Demo Video](https://img.youtube.com/vi/haMe_xAiqXg/0.jpg)](https://www.youtube.com/watch?v=haMe_xAiqXg)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
