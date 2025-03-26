@@ -47,7 +47,7 @@ export const HeroSection = () => {
               className="w-5/6 md:w-1/4 font-bold"
             >
               <a
-                href="https://github.com/dpertsin/tripmate"
+                href="https://github.com/shashankjr9/tripmate"
                 target="_blank"
                 rel="noopener noreferrer"
               >
